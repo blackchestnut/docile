@@ -28,7 +28,10 @@ module Docile
 
     # Undefine all instance methods except those in {NON_PROXIED_METHODS}
     instance_methods.each do |method|
-      undef_method(method) unless NON_PROXIED_METHODS.include?(method.to_sym)
+      begin
+        undef_method(method) unless NON_PROXIED_METHODS.include?(method.to_sym)
+      rescue NameError
+      end
     end
 
     # @param [Object] receiver  the primary proxy target to which all methods
